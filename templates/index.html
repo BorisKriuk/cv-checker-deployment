@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .upload-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sections-panel {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .pdf-panel {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            min-height: 800px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 6px;
+            background-color: #f8f9fa;
+        }
+
+        .section h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+
+        .section p {
+            color: #34495e;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .upload-form {
+            margin: 20px 0;
+        }
+
+        .upload-form input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .upload-form button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .upload-form button:hover {
+            background-color: #2980b9;
+        }
+
+        object {
+            width: 100%;
+            height: 800px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-section">
+        <h2>Upload your CV (PDF format)</h2>
+        <form class="upload-form" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".pdf">
+            <button type="submit">Upload and Analyze</button>
+        </form>
+    </div>
+
+    {% if pdf_loaded %}
+    <div class="container">
+        <div class="sections-panel">
+            <div class="section">
+                <h3>Education</h3>
+                <p>{{ sections.education }}</p>
+            </div>
+            <div class="section">
+                <h3>Experience</h3>
+                <p>{{ sections.experience }}</p>
+            </div>
+            <div class="section">
+                <h3>Skills</h3>
+                <p>{{ sections.skills }}</p>
+            </div>
+            <div class="section">
+                <h3>Contact</h3>
+                <p>{{ sections.contact }}</p>
+            </div>
+        </div>
+        
+        <div class="pdf-panel">
+            <object data="data:application/pdf;base64,{{ pdf_data }}" type="application/pdf">
+                <p>Unable to display PDF file. <a href="data:application/pdf;base64,{{ pdf_data }}" download="cv.pdf">Download</a> instead.</p>
+            </object>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>
