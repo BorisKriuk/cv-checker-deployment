@@ -26,7 +26,7 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 client = AzureOpenAI(
   azure_endpoint = "https://hkust.azure-api.net",
   api_version = "2023-05-15",
-  api_key = "a743ecc47399464199738f91c45113d7" #put your api key here
+  api_key = "a77" #put your api key here
 )
 
 def get_completion(prompt, instruction):
